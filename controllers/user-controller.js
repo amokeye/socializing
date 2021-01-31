@@ -3,26 +3,35 @@ const { User } = require('../models');
 
 const allUserInfo = {
 
-    getAllUsers(req, res) {
-        User.find({}).select('-__v').then(allUsers => {
+    getAllUser(req, res) {
+        User.find({}).populate({
+            path: 'thoughts',
+            select: '-__v'
+        }).select('-__v').then(allUsers => {
             res.json(allUsers);
         }).catch(error => {
-                console.log(error);
-                res.status(500).json(error);
-            });
+            console.log(error);
+            res.status(500).json(error);
+        });
     },
 
     getUserById({ params }, res) {
-        User.findOne({ _id: params.id }).select('-__v').populate('thoughts').populate('friends').then(singleUser => {
-                if (!singleUser) {
-                    res.status(404).json({ message: 'Invalid id; no user found.' });
-                    return;
-                }
-                res.json(singleUser);
-            }).catch(error => {
-                console.log(error);
-                res.status(400).json(error);
-            });
+        User.findOne({ _id: params.userId }).populate({
+            path: 'thoughts',
+            select: '-__v'
+        }).populate({
+            path: 'friends',
+            select: '-__v'
+        }).select('-__v').then(singleUser => {
+            if (!singleUser) {
+                res.status(404).json({ message: 'No user found.' });
+                return;
+            }
+            res.json(singleUser);
+        }).catch(error => {
+            console.log(error);
+            res.status(400).json(error);
+        });
     },
 
     createUser({ body }, res) {
@@ -35,32 +44,32 @@ const allUserInfo = {
 
     updateUser({ params, body }, res) {
         User.findOneAndUpdate({ _id: params.id }, body, { new: true, runValidators: true }).then(userUpdate => {
-                if (!userUpdate) {
-                    res.status(404).json({ message: 'Invalid id; no user found.' });
-                    return;
-                }
-                res.json(userUpdate);
-            }).catch(err => {
-                res.status(400).json(err);
-            });
+            if (!userUpdate) {
+                res.status(404).json({ message: 'Invalid id; no user found.' });
+                return;
+            }
+            res.json(userUpdate);
+        }).catch(error => {
+            res.status(400).json(error);
+        });
     },
 
     deleteUser({ params }, res) {
         User.findOneAndDelete({ _id: params.id }).then(userToDelete => {
-                if (!userToDelete) {
-                    res.status(404).json({ message: 'Invalid id; no user found.' });
-                    return;
-                }
-                res.json({ message: 'User successfully deleted!'});
-            }).catch(error => {
-                res.status(400).json(error);
-            });
+            if (!userToDelete) {
+                res.status(404).json({ message: 'Invalid id; no user found.' });
+                return;
+            }
+            res.json({ message: 'User successfully deleted!' });
+        }).catch(error => {
+            res.status(400).json(error);
+        });
     },
 
     addaFriend({ params }, res) {
         User.findOneAndUpdate(
             { _id: params.userId },
-            { $push: { friends: params.friendId} },
+            { $push: { friends: params.friendId } },
             { new: true }).then(friendToAdd => {
                 if (!friendToAdd) {
                     res.status(404).json({ message: 'Invalid id; no user found.' });
@@ -73,10 +82,10 @@ const allUserInfo = {
             });
     },
 
-    removeaFriend({ params }, res){
+    removeaFriend({ params }, res) {
         User.findByIdAndUpdate(
             { _id: params.userId },
-            { $pull: { friends: params.friendId} },
+            { $pull: { friends: params.friendId } },
             { new: true }).then(deleteFriend => {
                 if (!deleteFriend) {
                     res.status(404).json({ message: 'Invalid id; no user found.' });
@@ -87,7 +96,7 @@ const allUserInfo = {
                 console.log(error);
                 res.status(400).json(error);
             });
-        }
+    }
 }
 
 module.exports = allUserInfo;

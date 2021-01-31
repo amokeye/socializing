@@ -1,6 +1,6 @@
-// Imports
+// Imports/Dependency
 const { Schema, model, Types } = require('mongoose');
-const dateFormat = require('../utils/dateFormat');
+const dateFormat = require('../utils/dateFormatter');
 
 const reactionSchema = new Schema(
     {
