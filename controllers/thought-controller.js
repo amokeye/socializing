@@ -56,7 +56,7 @@ const allThoughtInfo = {
                 return res.status(404).json({ message: 'Id does not match any thoughts in database; no thought found.' });
             }
             res.json(thoughtUpdate);
-        }).catch(err => res.json(err));
+        }).catch(error => res.json(error));
     },
     deleteThought({ params }, res) {
         Thought.findOneAndDelete({ _id: params.thoughtId })
@@ -65,8 +65,8 @@ const allThoughtInfo = {
                     return res.status(404).json({ message: 'Id does not match any thoughts in database; no thought found.' });
                 }
                 res.json(thoughtToDelete);
-            }).catch(err => {
-                res.json(err)
+            }).catch(error => {
+                res.json(error)
             });
     },
     deleteReaction({ params, body }, res) {
@@ -76,8 +76,8 @@ const allThoughtInfo = {
             { new: true }
         ).then(thoughtData => {
             res.json(thoughtData);
-        }).catch(err => {
-            res.json(err);
+        }).catch(error => {
+            res.json(error);
         });
     }
 }
