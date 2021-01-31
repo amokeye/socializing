@@ -5,7 +5,8 @@ Who doesn't love personal connection?! *Socializing* is a social networking API 
 
 ## Testing
 After setting up the Mongo DB server, the user will start the server to ensure that it is running on a valid port. Insomia Core was used to test the functionality of the application's routes. The "GET all thoughts" route is undergoing testing in the preview below:<br>
-![image](https://user-images.githubusercontent.com/67798512/106396605-d21cbe80-63bd-11eb-8443-b6d78ba13f88.png)
+<br>
+![image](https://user-images.githubusercontent.com/67798512/106396618-ed87c980-63bd-11eb-93e0-e6f1be99b870.png)
 
 
 
