@@ -15,6 +15,6 @@ The user then navigates to Insomnia core. Insomia Core was used to test the func
 <br>[Click here](https://drive.google.com/file/d/16M1smoOJIfVkbFcTY8EO4HPajBXRm_o2/view) for a video walkthrough that demonstrates the use of Insomnia Core to test routes!
 <br>
 ## Contact
-If you have any questions about this application, please contact me via one of the following options:
+If you have any questions about this application, please contact me via one of the following options :point_down:
 * Email: Amokeye91@gmail.com, or
 * Github: [amokeye](https://github.com/amokeye)
