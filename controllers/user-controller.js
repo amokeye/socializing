@@ -3,7 +3,7 @@ const { User } = require('../models');
 
 const allUserInfo = {
 
-    getAllUser(req, res) {
+    getAllUsers(req, res) {
         User.find({}).populate({
             path: 'thoughts',
             select: '-__v'
